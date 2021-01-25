@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from 'antd';
 import { searchRequest } from './api'; 
-import { SearchComponent } from './components';
+import { SearchComponent, ListComponent } from './components';
 import { useMainState } from './reducer';
 import { newSearch } from './reducer/actions';
 import './App.css';
@@ -26,7 +26,7 @@ const App: React.FC = () => {
         <div className="site-layout-content">
             <Title>Search a movie</Title>
                 <SearchComponent  onSearch={onSearch} />
-            {JSON.stringify(state.movies)}
+                <ListComponent movies={state.movies} />
         </div>
     );
 }; 
