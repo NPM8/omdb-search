@@ -8,11 +8,14 @@ const {Title} = Typography;
 
 
 const App: React.FC = () => {
-
     const onSearch = async (query: string) => {
-        const data = await searchRequest(query);
+        try {
+            const data = await searchRequest(query);
 
-        console.log(data);
+            console.log(data);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
