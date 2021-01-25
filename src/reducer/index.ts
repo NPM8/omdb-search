@@ -1,10 +1,12 @@
 import { useReducer, Dispatch, ReducerAction, ReducerState } from 'react';
 import { InitialState, MainReducer } from './types';
-import { NEW_SEARCH } from './actions';
+import { NEW_SEARCH, ADD_MOVIE } from './actions';
 
 const initialState: InitialState = {
     movies: [],
     total: 0,
+    query: '',
+    page: 1,
     refetchingLoding: false,
     searchLoding: false,
 }
@@ -14,8 +16,16 @@ const reducer: MainReducer = (state, {type, payload}) => {
         case NEW_SEARCH:
             return {
                 ...state,
-                movies: [...state.movies, ...payload.movies],
+                movies: payload.movies,
                 total: payload.total,
+                query: payload.query,
+                page: 2,
+            }
+        case ADD_MOVIE:
+            return {
+                ...state,
+                movies: [...state.movies, ...payload.movies],
+                page: state.page + 1,
             }
         default: 
            throw new Error('no default action')

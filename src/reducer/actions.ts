@@ -20,6 +20,6 @@ export const stopLoadingAction = () => ({type: STOP_LOADING});
 
 export const stopRefetchingAction = () => ({type: STOP_REFETCHING});
 
-export const newSearch = (movies: MovieInSearch[], total: number) => ({type: NEW_SEARCH, payload: {movies, total}});
+export const newSearch = (movies: MovieInSearch[], total: number, query: string) => ({type: NEW_SEARCH, payload: {movies, total, query}});
 
-export const addMovie = (movies: MovieInSearch[]) => ({type: ADD_MOVIE, payload: movies});
+export const addMovie = (movies: MovieInSearch[]) => ({type: ADD_MOVIE, payload: {movies}});

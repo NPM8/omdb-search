@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography } from 'antd';
 import { searchRequest } from './api'; 
-import { SearchComponent, ListComponent } from './components';
+import { SearchComponent, ListComponent, LoadMoreComponent } from './components';
 import { useMainState } from './reducer';
-import { newSearch } from './reducer/actions';
+import { newSearch, addMovie } from './reducer/actions';
 import './App.css';
 
 const {Title} = Typography;
@@ -14,9 +14,20 @@ const App: React.FC = () => {
 
     const onSearch = async (query: string) => {
         try {
-            const data = await searchRequest(query);
+            const data = await searchRequest(query, 1);
             
-            dispatch(newSearch(data.Search, data.totalResults));
+            dispatch(newSearch(data.Search, data.totalResults, query));
+            console.log(state.movies)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const onLoad = async () => {
+        try {
+            const data = await searchRequest(state.query, state.page);
+
+            dispatch(addMovie(data.Search));
         } catch (e) {
             console.log(e)
         }
@@ -25,8 +36,15 @@ const App: React.FC = () => {
     return (
         <div className="site-layout-content">
             <Title>Search a movie</Title>
-                <SearchComponent  onSearch={onSearch} />
-                <ListComponent movies={state.movies} />
+            <SearchComponent  onSearch={onSearch} />
+                <ListComponent 
+                    movies={state.movies}
+                    loadMore={<LoadMoreComponent
+                        loading={state.refetchingLoding} 
+                        hasMore={state.total > state.movies.length}
+                        onLoad={onLoad}
+                    />}
+                />
         </div>
     );
 }; 

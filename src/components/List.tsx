@@ -2,17 +2,18 @@ import React from 'react';
 import { MovieInSearch } from '../types';
 import { List, Typography } from 'antd';
 
-type ListComponentProps = {movies: MovieInSearch[]}
+type ListComponentProps = {movies: MovieInSearch[]; loadMore: React.ReactNode}
 
 const {Text, Paragraph} = Typography;
 
-export const ListComponent: React.FC<ListComponentProps> = ({movies}) => {
+export const ListComponent: React.FC<ListComponentProps> = ({movies, loadMore}) => {
     return (<List
         size="large"
         itemLayout="vertical"
         dataSource={movies}
+        loadMore={loadMore}
+        rowKey={(item) => item.Title}
         renderItem={(item) => (<List.Item 
-            key={item.Title}
             extra={<img src={item.Poster} width={150} alt="Poster" />}
             >
                 <List.Item.Meta 

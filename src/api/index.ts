@@ -1,7 +1,7 @@
 import { SearchResult, Response } from './types';
 
-export const searchRequest: (query: string) => Promise<SearchResult> = async (query) => {
-    const data = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}&page=1`);
+export const searchRequest: (query: string, page: number) => Promise<SearchResult> = async (query, page) => {
+    const data = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}&page=${page.toString()}`);
     const json: Response = await data.json();
 
     if (json.Response === "True") {
