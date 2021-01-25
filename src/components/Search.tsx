@@ -3,8 +3,12 @@ import { Input } from 'antd';
 
 const {Search} = Input;
 
-export const SearchComponent: React.FC = () => {
+type SearchComponentProps = {
+    onSearch: (query: string) => void;
+}
+
+export const SearchComponent: React.FC<SearchComponentProps> = ({onSearch}) => {
     return (<div>
-            <Search placeholder="title" onSearch={(e) => console.log(e)} enterButton />
+            <Search placeholder="title" onSearch={onSearch} enterButton />
         </div>);
 }
