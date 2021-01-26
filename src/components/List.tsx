@@ -8,7 +8,7 @@ type ListComponentProps = {
     loading: boolean;
 }
 
-const {Text, Paragraph} = Typography;
+const {Text, Paragraph, Link} = Typography;
 
 export const ListComponent: React.FC<ListComponentProps> = ({
     movies,
@@ -24,12 +24,12 @@ export const ListComponent: React.FC<ListComponentProps> = ({
         rowKey={(item) => item.Title}
         renderItem={(item) => (<List.Item 
             extra={<img src={item.Poster} width={150} alt="Poster" />}
-            >
-                <List.Item.Meta 
-                    title={item.Title}
-                />
-                <Paragraph><Text strong>Year</Text>: {item.Year}</Paragraph>
-                <Paragraph><Text strong>Type</Text>: {item.Type}</Paragraph>
+        >
+            <List.Item.Meta 
+                title={<Link href={`https://www.imdb.com/title/${item.imdbID}/`}>{item.Title}</Link>}
+            />
+            <Paragraph><Text strong>Year</Text>: {item.Year}</Paragraph>
+            <Paragraph><Text strong>Type</Text>: {item.Type}</Paragraph>
         </List.Item>)}
     />)
 }
