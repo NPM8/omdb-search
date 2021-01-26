@@ -1,10 +1,11 @@
 import { SearchResult, Response } from './types';
+import { encodeQuery } from '../utils';
 
 export const searchRequest: (query: string, page: number) => Promise<SearchResult> = async (query, page) => {
     const data = await fetch(`https://www.omdbapi.com/?apikey=${
         process.env.REACT_APP_API_KEY
     }&s=${
-        encodeURI(query)
+        encodeQuery(query)
     }&page=${
         page.toString()
     }`);
