@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography, notification } from 'antd';
 import { searchRequest } from './api'; 
 import { SearchComponent, ListComponent, LoadMoreComponent } from './components';
 import { useMainState } from './reducer';
@@ -11,15 +11,19 @@ const {Title} = Typography;
 
 const App: React.FC = () => {
     const [state, dispatch] = useMainState();
+    const [api, contextHolder] = notification.useNotification();
 
     const onSearch = async (query: string) => {
         try {
             const data = await searchRequest(query, 1);
             
             dispatch(newSearch(data.Search, data.totalResults, query));
-            console.log(state.movies)
         } catch (e) {
-            console.log(e)
+            api.error({
+                message: 'Something went wrong',
+                description: e.message,
+                placement: 'topLeft',
+            });
         }
     }
 
@@ -29,12 +33,17 @@ const App: React.FC = () => {
 
             dispatch(addMovie(data.Search));
         } catch (e) {
-            console.log(e)
+            api.error({
+                message: 'Something went wrong',
+                description: e.message,
+                placement: 'topLeft',
+            });
         }
     }
 
     return (
         <div className="site-layout-content">
+            {contextHolder}
             <Title>Search a movie</Title>
             <SearchComponent  onSearch={onSearch} />
                 <ListComponent 
