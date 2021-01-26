@@ -9,7 +9,7 @@ type LoadMoreComponentProps = {
 }
 
 export const LoadMoreComponent: React.FC<LoadMoreComponentProps> = ({onLoad, hasMore, loading}) => {
-    return hasMore && !loading ? (<div className="load-more">
-            <Button onClick={onLoad}>Load more</Button>
+    return hasMore ? (<div className="load-more">
+            <Button loading={loading} onClick={onLoad}>Load more</Button>
         </div>) : <></>;
 };

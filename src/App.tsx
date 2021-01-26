@@ -60,15 +60,16 @@ const App: React.FC = () => {
         <div className="site-layout-content">
             {contextHolder}
             <Title>Search a movie</Title>
-            <SearchComponent  onSearch={onSearch} />
-                <ListComponent 
-                    movies={state.movies}
-                    loadMore={<LoadMoreComponent
-                        loading={state.refetchingLoding} 
-                        hasMore={state.total > state.movies.length}
-                        onLoad={onLoad}
-                    />}
-                />
+            <SearchComponent  onSearch={onSearch} loading={state.searchLoding}/>
+            <ListComponent
+                loading={state.searchLoding}
+                movies={state.movies}
+                loadMore={<LoadMoreComponent
+                    loading={state.refetchingLoding} 
+                    hasMore={state.total > state.movies.length}
+                    onLoad={onLoad}
+                />}
+            />
         </div>
     );
 }; 

@@ -5,10 +5,19 @@ const {Search} = Input;
 
 type SearchComponentProps = {
     onSearch: (query: string) => void;
+    loading: boolean;
 }
 
-export const SearchComponent: React.FC<SearchComponentProps> = ({onSearch}) => {
+export const SearchComponent: React.FC<SearchComponentProps> = ({
+    onSearch,
+    loading,
+}) => {
     return (<div>
-            <Search placeholder="title" onSearch={onSearch} enterButton />
-        </div>);
+        <Search 
+            placeholder="Title"
+            loading={loading}
+            onSearch={onSearch}
+            enterButton
+        />
+    </div>);
 }
